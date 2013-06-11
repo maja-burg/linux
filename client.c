@@ -7,7 +7,6 @@ int main() {
     int sock;
     struct sockaddr_in server;
     char message[1024], response[1024];
-
     /* Socket erzeugen */
     sock = socket(AF_INET, SOCK_STREAM, 0);
     if (sock < 0) {
