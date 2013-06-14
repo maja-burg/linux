@@ -15,7 +15,18 @@ private:
 
     string      nickname;
     string      password;
+    bool        log;
 
+    void    Logging(bool log);
+    void    ClearLog();
+    string  GetLog();
+    string  GetLastSeen(string nickname);
+
+    void    Nick(string nickname);
+    void    User(string username);
+    void    Join(string channel);
+    void    Leave(string channel);
+    void    ChangeTopic(string topic);
 
 
 };

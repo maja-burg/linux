@@ -20,20 +20,27 @@ using namespace std;
 
 class Connection {
 public:
-    Connection();
+    Connection(string host, int port, string channel);
     ~Connection();
 
-    Connect();
-    Disconnect();
+    int     mainLoop();
 
-    Identify();
-    PingPong(string buffer);
 
 private:
     string  host;
     int     port;
     string  channel;
 
+    void    Connect();
+    void    Disconnect();
+
+    void    Send(string msg);
+    void    Identify();
+    void    PingPong(string buffer);
+    int     ParseIrc(string buffer);
+    int     BotFunctions(string buffer);
+    void    SetChannel(string channel);
+    string  GetChannel();
 
 };
 
