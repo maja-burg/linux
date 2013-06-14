@@ -47,6 +47,18 @@ void Connection::Disconnect()
 {
     close(sock);
 }
+void Connection::Send(string msg) {
+    send(sock, msg.c_str(), msg.length(), 0);
+}
+bool Connection::Receive(string &buf) {
+    char buffer[BUFFER_SIZE+1] = {0};
+    if (recv(sock, buffer, BUFFER_SIZE*sizeof(char), 0) < 0) {
+        perror("Failed to receive message...");
+        return false;
+    }
+    message = ParseIrc(string(buffer));
+    return true;
+}
 void Connection::Identify(string name, string pw, string channel)
 {
     Send("NICK " + name + "\r\n");
@@ -57,15 +69,17 @@ void Connection::Identify(string name, string pw, string channel)
 }
 void Connection::PingPong(string buffer)
 {
-
+    size_t pos = message.find("PING");
+    if (pos != string::npos) {
+        string pong("PONG" + message.substr(pos + 4));
+        cout << pong << endl;
+        connector->Send(pong);
+    }
 }
-int Connection::ParseIrc(string buffer)
-{
-
-}
-int Connection::BotFunctions(string buffer)
-{
-
+string Connection::ParseIrc(string buffer) {
+    if (buffer.find("\r\n") == buffer.length()-2)
+        buffer.erase(buffer.length()-2);
+    return buffer;
 }
 void Connection::SetChannel(string channel)
 {

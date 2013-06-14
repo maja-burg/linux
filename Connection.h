@@ -16,6 +16,8 @@
 #include <netdb.h>
 #include <unistd.h>
 
+#define BUFFER_SIZE 1024
+
 using namespace std;
 
 class Connection {
@@ -32,10 +34,11 @@ private:
     void    Disconnect();
 
     void    Send(string msg);
+    bool    Receive(string &buf);
+
     void    Identify(string name, string pw, string channel);
     void    PingPong(string buffer);
     int     ParseIrc(string buffer);
-    int     BotFunctions(string buffer);
     void    SetChannel(string channel);
     string  GetChannel();
 
