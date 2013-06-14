@@ -5,6 +5,7 @@ Bot::Bot(string nickname, string password) {
     this->nickname = nickname;
     this->password = password;
     con = NULL;
+    DBConnect::init("logdb.sqlite");
 }
 
 // Destruktor
@@ -12,6 +13,17 @@ Bot::~Bot() {
     delete con;
 }
 
+void Bot::mainLoop() {
+    string message;
+    for (;;) {
+        if (!con->Receive(message))
+            break;
+        cout << message << endl;
+        ParsePing(message);
+        if (!PerformAction(message))
+            break;
+    }
+}
 
 void Bot::Logging(bool log)
 {
@@ -19,7 +31,7 @@ void Bot::Logging(bool log)
 }
 void Bot::ClearLog()
 {
-
+    DBConnect::clearTable();
 }
 string Bot::GetLog()
 {

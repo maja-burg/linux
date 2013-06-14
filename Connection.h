@@ -23,9 +23,6 @@ public:
     Connection(string host, int port, string channel);
     ~Connection();
 
-    int     mainLoop();
-
-
 private:
     string  host;
     int     port;
@@ -35,7 +32,7 @@ private:
     void    Disconnect();
 
     void    Send(string msg);
-    void    Identify();
+    void    Identify(string name, string pw, string channel);
     void    PingPong(string buffer);
     int     ParseIrc(string buffer);
     int     BotFunctions(string buffer);

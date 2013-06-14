@@ -3,13 +3,14 @@
 #include <algorithm>
 #include <sstream>
 #include "Connection.h"
+#include "DBConnect.h"
 
 class Bot {
 public:
     Bot(string nickname, string password);
     ~Bot();
 
-
+    void     mainLoop();
 private:
     Connection  *con;
 
