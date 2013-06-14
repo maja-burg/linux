@@ -1,5 +1,7 @@
 all:
+	g++ -c DBConnect.cpp;
+	g++ -c Connection.cpp;	
+	g++ -c MsgParser.cpp;
 	g++ -c Bot.cpp;
-	g++ -c Connection.cpp;
-	g++ main.cpp -o main Connection.o Bot.o;
+	g++ main.cpp -o main DBConnect.o Connection.o MsgParser.o Bot.o -lsqlite3;
 
